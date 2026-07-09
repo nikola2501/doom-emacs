@@ -95,13 +95,20 @@ Notation: `SPC f f` = press Space, then f, then f. `C-x` = Ctrl+x, `M-x` = Alt+x
 | `K` | Hover docs for symbol under cursor |
 | `SPC c a` | Code action (quick fixes, imports) |
 | `SPC c r` | Rename symbol |
-| `SPC c f` | Format buffer/region |
+| `SPC c f` | Format buffer/region (also auto-runs on save) |
 | `SPC c d` | Jump to definition |
 | `SPC c D` | Jump to references |
-| `SPC c x` | List errors/diagnostics |
-| `] d` / `[ d` | Next / previous diagnostic |
+| `SPC c x` | List all errors/diagnostics in the buffer |
+| `] e` / `[ e` | Jump to next / previous error (diagnostic) |
 | `M-x eglot` | Manually start the language server |
 | `M-x eglot-reconnect` | Restart the server (e.g. after new deps) |
+
+**Format on save** is on (`(format +onsave)` + apheleia): saving a buffer
+reformats it with the language's tool — `gofmt`, `rustfmt`, `clang-format`,
+`odinfmt`. `SPC c f` also formats on demand.
+
+**Tree-sitter** is enabled for Go/Rust/C/Odin. A missing grammar auto-compiles
+on first open of that file type (needs `git` + a C compiler).
 
 ## Git (Magit)
 

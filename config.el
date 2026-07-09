@@ -148,6 +148,16 @@
 ;; opens in odin-ts-mode even if use-package's :mode is deferred.
 (add-to-list 'auto-mode-alist '("\\.odin\\'" . odin-ts-mode))
 
+;; Auto-compile a missing tree-sitter grammar (C / Rust / Go …) the first time a
+;; file opens, without prompting. Needs git + a C compiler (xcode CLI on macOS).
+(setq treesit-auto-install-grammar 'always)
+
+;; Format-on-save (apheleia, via `(format +onsave)') also covers Odin: pipe the
+;; buffer through `odinfmt -stdin'. Go/Rust/C already work (gofmt/rustfmt/clang-format).
+(after! apheleia
+  (setf (alist-get 'odinfmt apheleia-formatters) '("odinfmt" "-stdin"))
+  (setf (alist-get 'odin-ts-mode apheleia-mode-alist) 'odinfmt))
+
 ;; Plain dired like Tsoding's: turn off diredfl's rainbow permission-bit coloring
 ;; (the garish red/green/brown stripes on the drwxr-xr-x column).
 (remove-hook 'dired-mode-hook #'diredfl-mode)

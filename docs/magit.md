@@ -120,6 +120,54 @@ For a visual, side-by-side comparison of a file across branches:
 3. `l o` → `main..the-pr-branch` — walk commit by commit if you prefer.
 4. `E`/`magit-ediff-compare` — side-by-side on any file you want a closer look at.
 
+## Forge — GitHub PRs & issues inside Emacs
+
+Forge (enabled via `(magit +forge)`) syncs a repo's issues and pull requests into
+Magit, so you can read, comment, create and review them without leaving Emacs.
+
+### One-time setup: a GitHub token
+
+Forge authenticates with a token stored in **auth-source** (`~/.authinfo.gpg` or
+`~/.authinfo`). The `gh` CLI login is separate — Forge needs its own token.
+
+1. Create a token: GitHub → Settings → Developer settings → Personal access
+   tokens → **Tokens (classic)** → scope `repo` (plus `read:org` for org repos).
+2. Add this line to `~/.authinfo.gpg` (encrypted, preferred) or `~/.authinfo`:
+   ```
+   machine api.github.com login <your-username>^forge password <TOKEN>
+   ```
+   The `^forge` suffix on the login is required.
+3. Restart Emacs (or `M-x auth-source-forget-all-cached`).
+
+### Add a repo & pull its topics
+
+- In the repo's Magit status (`SPC g g`), run **`M-x forge-add-repository`** once.
+- **`M-x forge-pull`** — fetch issues + PRs into the local db. Magit status then
+  shows **Pull Requests** and **Issues** sections; `RET` visits one.
+
+### Everyday commands
+
+| Command | Action |
+|---------|--------|
+| `M-x forge-dispatch` | The Forge menu (everything) |
+| `M-x forge-pull` | Sync issues / PRs |
+| `M-x forge-list-pullreqs` | List open PRs |
+| `M-x forge-checkout-pullreq` | **Check out a PR's branch locally** (for review) |
+| `M-x forge-create-pullreq` | Open a PR from the current branch |
+| `M-x forge-create-issue` | File an issue |
+| `RET` on a PR/issue | Visit it (description, comments) |
+| `M-x forge-create-post` | Comment / reply on the visited topic |
+
+> This config uses `(evil +everywhere)`, so Forge's default `@` keybindings are
+> off — use the `M-x forge-…` commands (or `M-x forge-dispatch`).
+
+### PR-review combo
+
+1. `M-x forge-pull` → find the PR in Magit status.
+2. `M-x forge-checkout-pullreq` → its branch is now local.
+3. `SPC g g` → `d r` → `main...HEAD` (see **Comparing two branches** above).
+4. Comment / approve / merge from the topic buffer or `M-x forge-dispatch`.
+
 ## Interactive rebase (`r i`)
 
 In the rebase todo buffer:
