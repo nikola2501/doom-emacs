@@ -26,9 +26,16 @@
 (setq doom-font (font-spec :family "Iosevka Extended" :size 22))
 ;; Breathing room between lines (fraction of line height). Bump if still cramped.
 (setq-default line-spacing 0.25)
-;; Zen mode (SPC t z): narrow the centered column to 60 chars on wide monitors.
-;; (Kept the default text zoom; only width changed.)
-(setq writeroom-width 60)
+;; Zen mode centered on wide monitors (60-col column).
+;; Auto-enable everywhere: every code/text buffer (and new ones) starts centered.
+;;   - writeroom-maximize-window nil  -> keep window splits (don't delete others)
+;;   - writeroom-global-effects nil   -> don't toggle fullscreen/menubar globally
+;;   - writeroom-major-modes          -> which buffers get it automatically
+(setq writeroom-width 60
+      writeroom-maximize-window nil
+      writeroom-global-effects nil
+      writeroom-major-modes '(prog-mode text-mode conf-mode))
+(global-writeroom-mode 1)
 ;; Don't ask "Really quit Emacs?" on exit
 (setq confirm-kill-emacs nil)
 ;;

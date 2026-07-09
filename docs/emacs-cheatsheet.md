@@ -178,8 +178,12 @@ its own set of pinned files.
 | `SPC o p` | Toggle file tree (project sidebar) |
 | `SPC o t` | Open terminal (vterm/eshell) |
 | `SPC t` | Toggles menu (line numbers, wrap, etc.) |
-| `SPC t z` | **Zen mode** — center the buffer (60-col column, distraction-free) |
-| `SPC t Z` | Zen mode for all buffers (global) |
+| `SPC t z` | Toggle **Zen mode** on/off for a buffer (60-col centered column) |
+| `SPC t Z` | Toggle Zen for all buffers (global) |
+
+> Zen is **on by default** now (`global-writeroom-mode`): every code/text buffer
+> opens centered, without deleting window splits. Use `SPC t z` to turn it off
+> for a specific buffer.
 | `SPC RET` | Bookmarks |
 | `M-x doom/reload-font` | Reapply font after editing `config.el` |
 
