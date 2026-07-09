@@ -58,6 +58,11 @@ doom sync      # run the `doom` from whichever install you chose in step 1
 Then start the GUI Emacs. First launch compiles the Odin tree-sitter grammar
 (needs `git` + `cc`; on macOS run `xcode-select --install` if missing).
 
+## Docs
+
+- [`docs/emacs-cheatsheet.md`](docs/emacs-cheatsheet.md) — Doom + evil keybindings (leader `SPC`, LSP, windows, search).
+- [`docs/magit.md`](docs/magit.md) — using Magit (Git inside Emacs).
+
 ## Notes
 
 - After changing `packages.el`, run `doom sync` and **fully restart** Emacs
