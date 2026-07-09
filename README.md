@@ -5,12 +5,10 @@ This is **only the DOOMDIR** — Doom itself is installed separately (see below)
 
 ## What's set up
 
-- **Theme**: `gruber-darker` (Tsoding's), **font**: Iosevka Extended 22, extra `line-spacing`.
 - **LSP via Eglot** with auto-start for: Go (`gopls`), Rust (`rust-analyzer`),
   C/C++ (`clangd`), Odin (`ols`).
 - **Odin**: `odin-ts-mode` (tree-sitter) + `ols`. The tree-sitter grammar is
   compiled automatically on first launch (needs `git` + a C compiler).
-- Inlay parameter hints disabled; plain `dired` (no diredfl rainbow).
 - `exec-path-from-shell` so the **GUI** app inherits the shell `$PATH`
   (essential on macOS, where GUI apps don't get your shell env).
 
@@ -62,6 +60,5 @@ Then start the GUI Emacs. First launch compiles the Odin tree-sitter grammar
 
 ## Notes
 
-- Fonts: if Iosevka/Monaco aren't installed, edit `doom-font` in `config.el`.
 - After changing `packages.el`, run `doom sync` and **fully restart** Emacs
   (a `SPC h r r` reload does NOT load newly installed packages).
