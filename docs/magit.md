@@ -77,6 +77,49 @@ sub-options appears; pick flags, then the action).
 | `m` | Merge menu |
 | `X` | Reset menu (`X h` = hard reset — destructive) |
 
+## Comparing two branches (PR review)
+
+Classic PR-review flow: fetch a branch, check it out, then compare it against
+`main`.
+
+```bash
+git fetch origin
+git switch the-pr-branch     # or: git checkout the-pr-branch
+```
+
+Then in Magit (`SPC g g`), press **`d`** (diff menu) → **`r`** (diff **range**)
+and type a range:
+
+| You type | What you see |
+|----------|--------------|
+| `main..the-pr-branch` | Every commit's changes that are on the branch but not on main |
+| `main...the-pr-branch` | **Symmetric diff** — the net changes the branch *introduces* since it diverged from main (usually what a PR review wants) |
+| `main..HEAD` | Same, when you've already checked out the branch |
+
+> `..` vs `...`: for review you almost always want **`...`** — it ignores
+> changes that landed on `main` in the meantime and shows only what the branch
+> adds. If you just want a raw two-branch diff, `..` is fine.
+
+### See the commit list of the branch
+
+`l` (log menu) → `o` (log **other**/range) → type `main..the-pr-branch` to list
+just the commits the PR adds. `RET` on any commit shows its diff.
+
+### Side-by-side (Ediff)
+
+For a visual, side-by-side comparison of a file across branches:
+
+- `M-x magit-ediff-compare` → pick revA (`main`) and revB (`the-pr-branch`).
+- Or press **`E`** in a Magit buffer for the Ediff menu, then `c` to compare.
+- In Ediff: `n`/`p` next/previous difference, `a`/`b` copy A→B / B→A, `q` quit.
+
+### Quick recap for a review
+
+1. `git fetch origin && git switch the-pr-branch`
+2. `SPC g g` → `d r` → `main...the-pr-branch` — read the aggregate diff.
+3. `l o` → `main..the-pr-branch` — walk commit by commit if you prefer.
+4. `E`/`magit-ediff-compare` — side-by-side on any file you want a closer look at.
+
 ## Interactive rebase (`r i`)
 
 In the rebase todo buffer:
