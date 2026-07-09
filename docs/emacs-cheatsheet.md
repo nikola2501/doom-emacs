@@ -111,6 +111,20 @@ Notation: `SPC f f` = press Space, then f, then f. `C-x` = Ctrl+x, `M-x` = Alt+x
 | `SPC g b` | Git blame |
 | `SPC g L` | Git log |
 
+## Jump / hop around the screen (avy — like neovim's hop)
+
+Type a couple of characters, labels pop up on every match, press the label to
+jump. Bound under the `gs` prefix (evil-easymotion + avy).
+
+| Key | Action |
+|-----|--------|
+| `gs /` | Type any chars → labels appear → jump (closest to hop) |
+| `gs s` | Jump by 2 characters |
+| `gs j` / `gs k` | Hop to a line below / above |
+| `gs w` | Hop to the start of a word |
+| `gs SPC` | Hop across ALL visible windows |
+| `M-x avy-goto-line` | Jump to any visible line by label |
+
 ## Harpoon (deterministic jump to pinned files, per project)
 
 Like neovim's Harpoon: pin a few files, then jump straight to slot 1/2/3…
