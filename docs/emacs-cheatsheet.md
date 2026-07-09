@@ -157,6 +157,8 @@ its own set of pinned files.
 | `SPC o p` | Toggle file tree (project sidebar) |
 | `SPC o t` | Open terminal (vterm/eshell) |
 | `SPC t` | Toggles menu (line numbers, wrap, etc.) |
+| `SPC t z` | **Zen mode** — center the buffer (60-col column, distraction-free) |
+| `SPC t Z` | Zen mode for all buffers (global) |
 | `SPC RET` | Bookmarks |
 | `M-x doom/reload-font` | Reapply font after editing `config.el` |
 

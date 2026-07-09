@@ -26,6 +26,9 @@
 (setq doom-font (font-spec :family "Iosevka Extended" :size 22))
 ;; Breathing room between lines (fraction of line height). Bump if still cramped.
 (setq-default line-spacing 0.25)
+;; Zen mode (SPC t z): narrow the centered column to 60 chars on wide monitors.
+;; (Kept the default text zoom; only width changed.)
+(setq writeroom-width 60)
 ;; Don't ask "Really quit Emacs?" on exit
 (setq confirm-kill-emacs nil)
 ;;
