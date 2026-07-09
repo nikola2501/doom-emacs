@@ -62,6 +62,7 @@ Then start the GUI Emacs. First launch compiles the Odin tree-sitter grammar
 
 - [`docs/emacs-cheatsheet.md`](docs/emacs-cheatsheet.md) — Doom + evil keybindings (leader `SPC`, LSP, windows, search).
 - [`docs/magit.md`](docs/magit.md) — using Magit (Git inside Emacs).
+- [`docs/org-mode.md`](docs/org-mode.md) — what Org mode is + a practical cheat sheet.
 
 ## Notes
 
