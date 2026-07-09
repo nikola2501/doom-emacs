@@ -123,7 +123,21 @@ Like neovim's Harpoon: pin a few files, then jump straight to slot 1/2/3…
 | `SPC j c` | Clear all |
 | `SPC 1` … `SPC 9` | Jump to slot 1…9 |
 
-> `SPC 1..9` here override Doom's default workspace switching.
+**Workflow:**
+1. Open a key file → `SPC j a` to pin it (slot 1).
+2. Open another → `SPC j a` (slot 2), and so on for the few files you hop between.
+3. Now jump instantly: `SPC 1`, `SPC 2`, `SPC 3`… no fuzzy search needed.
+4. `SPC j j` opens the list — reorder or delete entries there.
+
+The list is **per project** and persists across sessions, so each project keeps
+its own set of pinned files.
+
+> `SPC 1..9` here override Doom's default workspace switching (still reachable
+> via `SPC TAB`).
+
+> **Reload note:** these keys are set at top level (not inside `after!`), so a
+> `SPC h r r` reload is enough — you don't need a full restart for keybinding
+> changes.
 
 ## Help / discoverability
 
