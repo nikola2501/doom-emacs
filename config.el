@@ -143,3 +143,23 @@
 ;; Plain dired like Tsoding's: turn off diredfl's rainbow permission-bit coloring
 ;; (the garish red/green/brown stripes on the drwxr-xr-x column).
 (remove-hook 'dired-mode-hook #'diredfl-mode)
+
+;; --- Harpoon: neovim-style deterministic jump to pinned files (per project) --
+;; SPC 1..9 jump to slots (overrides Doom's workspace-switch on those keys).
+;; SPC j a add current file, SPC j j open the editable quick menu.
+(after! harpoon
+  (map! :leader
+        (:prefix ("j" . "harpoon")
+         :desc "Add file"        "a" #'harpoon-add-file
+         :desc "Quick menu"      "j" #'harpoon-toggle-quick-menu
+         :desc "Toggle file"     "f" #'harpoon-toggle-file
+         :desc "Clear"           "c" #'harpoon-clear)
+        :desc "Harpoon 1" "1" #'harpoon-go-to-1
+        :desc "Harpoon 2" "2" #'harpoon-go-to-2
+        :desc "Harpoon 3" "3" #'harpoon-go-to-3
+        :desc "Harpoon 4" "4" #'harpoon-go-to-4
+        :desc "Harpoon 5" "5" #'harpoon-go-to-5
+        :desc "Harpoon 6" "6" #'harpoon-go-to-6
+        :desc "Harpoon 7" "7" #'harpoon-go-to-7
+        :desc "Harpoon 8" "8" #'harpoon-go-to-8
+        :desc "Harpoon 9" "9" #'harpoon-go-to-9))

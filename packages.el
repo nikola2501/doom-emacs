@@ -57,3 +57,4 @@
 (package! gruber-darker-theme)
 (package! odin-ts-mode
   :recipe (:host github :repo "Sampie159/odin-ts-mode"))
+(package! harpoon)

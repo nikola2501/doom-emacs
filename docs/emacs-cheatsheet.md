@@ -111,6 +111,20 @@ Notation: `SPC f f` = press Space, then f, then f. `C-x` = Ctrl+x, `M-x` = Alt+x
 | `SPC g b` | Git blame |
 | `SPC g L` | Git log |
 
+## Harpoon (deterministic jump to pinned files, per project)
+
+Like neovim's Harpoon: pin a few files, then jump straight to slot 1/2/3…
+
+| Key | Action |
+|-----|--------|
+| `SPC j a` | Add current file to harpoon |
+| `SPC j j` | Open the editable quick menu (reorder/remove) |
+| `SPC j f` | Toggle current file in the list |
+| `SPC j c` | Clear all |
+| `SPC 1` … `SPC 9` | Jump to slot 1…9 |
+
+> `SPC 1..9` here override Doom's default workspace switching.
+
 ## Help / discoverability
 
 | Key | Action |
