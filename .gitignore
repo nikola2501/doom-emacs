@@ -1,0 +1,11 @@
+# Compiled / native-compiled elisp
+*.elc
+*.eln
+
+# Emacs custom-set-variables spillover (machine-specific)
+custom.el
+
+# Editor cruft
+*~
+\#*\#
+.\#*

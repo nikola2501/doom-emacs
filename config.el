@@ -1,0 +1,145 @@
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; sync' after modifying this file!
+
+
+;; Some functionality uses this to identify you, e.g. GPG configuration, email
+;; clients, file templates and snippets. It is optional.
+;; (setq user-full-name "John Doe"
+;;       user-mail-address "john@doe.com")
+
+;; Doom exposes five (optional) variables for controlling fonts in Doom:
+;;
+;; - `doom-font' -- the primary font to use
+;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;;   presentations or streaming.
+;; - `doom-symbol-font' -- for symbols
+;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
+;;
+;; See 'C-h v doom-font' for documentation and more examples of what they
+;; accept. For example:
+;;
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "Iosevka Extended" :size 22))
+;; Breathing room between lines (fraction of line height). Bump if still cramped.
+(setq-default line-spacing 0.25)
+;; Don't ask "Really quit Emacs?" on exit
+(setq confirm-kill-emacs nil)
+;;
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
+;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
+;; refresh your font settings. If Emacs still can't find your font, it likely
+;; wasn't installed correctly. Font issues are rarely Doom issues!
+
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+(setq doom-theme 'doom-one)
+
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type t)
+
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/org/")
+
+
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+
+
+;; postavi default Doom temu
+;; (setq doom-theme 'doom-gruvbox)
+;; (setq doom-theme 'doom-gruvbox)
+;; (setq doom-theme 'doom-gruvbox)
+;; gruber-darker isn't a built-in Doom theme; make sure its package build dir is
+;; on custom-theme-load-path before applying it, otherwise Doom errors with
+;; "Unable to find theme file for 'gruber-darker'".
+;; Resolve the package build dir relative to the ACTIVE install (portable across
+;; machines/OSes and both local Doom dirs) instead of a hardcoded ~/.config/emacs.
+(let ((dir (car (file-expand-wildcards
+                 (expand-file-name "straight/build-*/gruber-darker-theme"
+                                   doom-local-dir)))))
+  (when dir (add-to-list 'custom-theme-load-path dir)))
+(setq doom-theme 'gruber-darker)   ; Tsoding's theme (gruber-darker-theme pkg)
+;; (setq doom-theme 'plain-dark)
+
+
+;; 1. Initialize environment variables (important for finding gopls/go/rust-analyzer)
+;; NOTE: must run eagerly (not via `after!'), because nothing else loads this
+;; package. GUI Emacs doesn't inherit the shell PATH, so without this Eglot
+;; can't find the language servers (works in the terminal only by accident).
+(when (or (display-graphic-p) (daemonp))
+  (require 'exec-path-from-shell)
+  (setq exec-path-from-shell-check-startup-files nil) ; speed up startup
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-envs '("PATH" "GOPATH" "GOROOT")))
+;; 2. The (go +lsp) module in init.el handles hooks automatically.
+;; You can remove the manual go-mode-hook!
+
+;; 3. Auto-start Eglot (clangd) for C/C++ just like Go/Rust do out of the box.
+;;    The (cc +lsp) module should do this, but be explicit so it always fires.
+(add-hook! '(c-mode-hook c++-mode-hook c-ts-mode-hook c++-ts-mode-hook objc-mode-hook)
+           #'eglot-ensure)
+
+;; 4. Kill the grey inlay parameter hints (e.g. `dest:`/`src:`/`n:` before args).
+;;    They clutter the buffer and make code feel cramped/noisy.
+(after! eglot
+  (add-to-list 'eglot-ignored-server-capabilities :inlayHintProvider))
+
+;; --- Odin language support (tree-sitter + ols via Eglot) ------------------
+;; odin-ts-mode doesn't register the grammar source or the file extension, so
+;; do both here. Grammar is compiled once on first launch (needs git + cc).
+(after! treesit
+  (add-to-list 'treesit-language-source-alist
+               '(odin "https://github.com/tree-sitter-grammars/tree-sitter-odin"))
+  (unless (treesit-language-available-p 'odin)
+    (ignore-errors (treesit-install-language-grammar 'odin))))
+
+(use-package! odin-ts-mode
+  :mode "\\.odin\\'"
+  :hook (odin-ts-mode . eglot-ensure)
+  :config
+  (after! eglot
+    ;; ols = Odin Language Server (already installed at /usr/bin/ols)
+    (add-to-list 'eglot-server-programs '(odin-ts-mode . ("ols")))))
+;; Belt-and-suspenders: register the extension eagerly too, so .odin always
+;; opens in odin-ts-mode even if use-package's :mode is deferred.
+(add-to-list 'auto-mode-alist '("\\.odin\\'" . odin-ts-mode))
+
+;; Plain dired like Tsoding's: turn off diredfl's rainbow permission-bit coloring
+;; (the garish red/green/brown stripes on the drwxr-xr-x column).
+(remove-hook 'dired-mode-hook #'diredfl-mode)
