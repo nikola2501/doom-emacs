@@ -35,7 +35,7 @@
       writeroom-maximize-window nil
       writeroom-global-effects nil
       writeroom-major-modes '(prog-mode text-mode conf-mode))
-(global-writeroom-mode 1)
+;; (global-writeroom-mode 1)   ; disabled: don't auto-center every buffer
 ;; Don't ask "Really quit Emacs?" on exit
 (setq confirm-kill-emacs nil)
 ;;
@@ -164,6 +164,10 @@
 (after! apheleia
   (setf (alist-get 'odinfmt apheleia-formatters) '("odinfmt" "-stdin"))
   (setf (alist-get 'odin-ts-mode apheleia-mode-alist) 'odinfmt))
+
+;; Treemacs drawer on the RIGHT side of the frame instead of the default left.
+(after! treemacs
+  (setq treemacs-position 'right))
 
 ;; Plain dired like Tsoding's: turn off diredfl's rainbow permission-bit coloring
 ;; (the garish red/green/brown stripes on the drwxr-xr-x column).
