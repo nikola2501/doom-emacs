@@ -109,7 +109,8 @@
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/" doom-user-dir))
 
 ;; (setq doom-theme 'matrix)          ; our green-on-black Matrix theme (themes/matrix-theme.el)
-(setq doom-theme 'gruber-darker)   ; Tsoding's theme (gruber-darker-theme pkg)
+;; (setq doom-theme 'gruber-darker)   ; Tsoding's theme (gruber-darker-theme pkg)
+(setq doom-theme 'doom-moonlight)  ; bundled with doom-themes
 ;; (setq doom-theme 'plain-dark)
 
 
