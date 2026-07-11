@@ -11,6 +11,8 @@ This is **only the DOOMDIR** — Doom itself is installed separately (see below)
   compiled automatically on first launch (needs `git` + a C compiler).
 - `exec-path-from-shell` so the **GUI** app inherits the shell `$PATH`
   (essential on macOS, where GUI apps don't get your shell env).
+- **Multiple cursors** (`evil-mc`) under the `gz` prefix — e.g. `gzj` adds a
+  cursor on the line below, `gzd` on the next match. See the cheatsheet.
 
 ## Fresh setup on a new machine
 

@@ -86,6 +86,26 @@ Notation: `SPC f f` = press Space, then f, then f. `C-x` = Ctrl+x, `M-x` = Alt+x
 | `>>` / `<<` | Indent / dedent line |
 | `.` | Repeat last change |
 
+## Multiple cursors (evil-mc)
+
+Enabled via the `multiple-cursors` module. All bound under the `gz` prefix.
+
+| Key | Action |
+|-----|--------|
+| `gzj` | Make a cursor and move to the **line below** (repeat for more) |
+| `gzk` | Make a cursor and move to the **line above** |
+| `gzd` | Make cursor at **next match** of word under cursor (like VS Code `C-d`) |
+| `gzD` | Make cursor at **previous match** |
+| `gzm` | Make cursors on **all** matches of the word/selection |
+| `gzz` | Toggle a cursor at point |
+| `gzn` / `gzp` | Make cursor and go to next / previous cursor |
+| `gzt` | Skip current match, move cursor to next |
+| `gzq` | Remove all cursors (exit multi-cursor mode) |
+
+**Workflow:** put the cursor on a word → `gzd` repeatedly to add a cursor at each
+next occurrence (skip one with `gzt`) → type your edit → `gzq` when done. For
+column editing, `gzj`/`gzk` stack cursors down/up the lines.
+
 ## Code / LSP (Eglot) — Go, Rust, C/C++, Odin
 
 | Key | Action |
