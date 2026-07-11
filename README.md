@@ -70,3 +70,12 @@ Then start the GUI Emacs. First launch compiles the Odin tree-sitter grammar
 
 - After changing `packages.el`, run `doom sync` and **fully restart** Emacs
   (a `SPC h r r` reload does NOT load newly installed packages).
+- **Modeline shows a box with a hex code (tofu) instead of a file-type icon?**
+  The icon fonts aren't installed. `doom-modeline` uses `nerd-icons`, which
+  wants **"Symbols Nerd Font Mono"** (v3) — note the `Mono` and `v3`: a plain
+  "Symbols Nerd Font" or an older v2 lacks the Material-Design glyphs (e.g.
+  `U+F0C13`). Fix from inside Emacs:
+  ```
+  M-x nerd-icons-install-fonts
+  ```
+  Then `fc-cache -f` runs automatically; **fully restart** Emacs.
