@@ -23,7 +23,7 @@
 ;;
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-(setq doom-font (font-spec :family "Iosevka Extended" :size 22))
+(setq doom-font (font-spec :family "Iosevka Extended" :size 24))
 ;; Breathing room between lines (fraction of line height). Bump if still cramped.
 (setq-default line-spacing 0.25)
 ;; Zen mode centered on wide monitors (60-col column).
