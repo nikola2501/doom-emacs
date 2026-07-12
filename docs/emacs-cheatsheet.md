@@ -102,9 +102,23 @@ Enabled via the `multiple-cursors` module. All bound under the `gz` prefix.
 | `gzt` | Skip current match, move cursor to next |
 | `gzq` | Remove all cursors (exit multi-cursor mode) |
 
+**Fast column of cursors** (custom bindings in `config.el`) — instead of typing
+`gzj` three keys at a time, tap one chord repeatedly:
+
+| Key | Action |
+|-----|--------|
+| `C-M-j` / `C-M-<down>` | Add a cursor on the **line below** (tap repeatedly) |
+| `C-M-k` / `C-M-<up>` | Add a cursor on the **line above** |
+
+`C-M-<down>`/`C-M-<up>` mirror VS Code / Sublime's Ctrl-Alt-arrow. `gzq` exits.
+
 **Workflow:** put the cursor on a word → `gzd` repeatedly to add a cursor at each
 next occurrence (skip one with `gzt`) → type your edit → `gzq` when done. For
-column editing, `gzj`/`gzk` stack cursors down/up the lines.
+column editing, hold `C-M-j` to stack cursors down the lines.
+
+> **Even faster for identical edits on N contiguous lines:** skip cursors and use
+> evil's **visual block**: `C-v` → `15j` (select 15 lines) → `I` (insert at start)
+> or `A` (append at end) → type → `ESC`, and the text lands on every line at once.
 
 ## Code / LSP (Eglot) — Go, Rust, C/C++, Odin
 

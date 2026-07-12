@@ -195,3 +195,12 @@
       :desc "Harpoon 7" "7" #'harpoon-go-to-7
       :desc "Harpoon 8" "8" #'harpoon-go-to-8
       :desc "Harpoon 9" "9" #'harpoon-go-to-9)
+
+;; --- Multiple cursors: one-chord "add cursor on line below/above" ----------
+;; Instead of `gzj gzj gzj...`, just tap C-M-j (or C-M-<down>) repeatedly.
+;; Vim j/k logic + a VS Code / Sublime-style Ctrl-Alt-arrow alias. `gzq` exits.
+;; Commands autoload from evil-mc (multiple-cursors module), so top-level is fine.
+(map! :nv "C-M-j"      #'evil-mc-make-cursor-move-next-line
+      :nv "C-M-k"      #'evil-mc-make-cursor-move-prev-line
+      :nv "C-M-<down>" #'evil-mc-make-cursor-move-next-line
+      :nv "C-M-<up>"   #'evil-mc-make-cursor-move-prev-line)
